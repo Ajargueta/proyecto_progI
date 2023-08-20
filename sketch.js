@@ -1,6 +1,8 @@
 var stepx = 0;
 var stepy = 0;
-var cuadros = 50;
+var cuadros = 60;
+var running = false;
+var won = false;
 
 function nineFields(size) {
   var fieldSize = size / 3;
@@ -11,8 +13,8 @@ function nineFields(size) {
 }
 
 function keyPressed(){
-  var i = stepx / 50;
-  var j = stepy / 50;
+  var i = stepx / cuadros;
+  var j = stepy / cuadros;
   var valuk  = keyCode - 96;
 
   if ( keyCode === UP_ARROW ) {
@@ -23,7 +25,7 @@ function keyPressed(){
     }
 
   } else if ( keyCode === DOWN_ARROW ) {
-    if ( stepy === 400 ) {
+    if ( stepy === (cuadros * 8) ) {
       stepy = stepy; 
     } else {
       stepy = stepy + cuadros;
@@ -37,7 +39,7 @@ function keyPressed(){
     }
     
   } else if ( keyCode === RIGHT_ARROW ) {
-    if ( stepx === 400) {
+    if ( stepx === (cuadros * 8)) {
       stepx = stepx;
     } else {
       stepx = stepx + cuadros;
@@ -49,57 +51,55 @@ function keyPressed(){
       if (answers[j][i] !== 2 ){
         var tmp = creating_families(j , i);
         var num = field[j][i];
-        //var k = checking_val(j , i, valuk);
         fams[tmp] = fams[tmp] / primes[num];
         fams[tmp] = fams[tmp] * primes[valuk];
         cols[i] = cols[i] / primes[num];
         cols[i] = cols[i] * primes[valuk];
         rows[j] = rows[j] / primes[num];
         rows[j] = rows[j] * primes[valuk];
-        field[8][7] = 5;
-        //answers[j][i] = k;
         field[j][i] = valuk;
-        checking_val(j , i, valuk);
-        //checking_val(j , i);
-        /*if (k === 1){
-          if (cols[i] === counter && rows[j] === counter && fams[tmp] === counter){
-            var winner = determinate_win();
-            
+        checking_val(j , i);
+        if (fams[tmp] === counter && cols[i] === counter && rows[j] === counter){
+          won = winner();
+          if (won === true){
+            final_message();
           }
-        }*/
+        }
       }
     }
   }
 }
 
 function mouseClicked(){
-  stepx = mouseX - (mouseX % cuadros);
-  stepy = mouseY - (mouseY % cuadros);
+  if((mouseX < (cuadros * 9)) && (mouseY < (cuadros * 9))){
+    stepx = mouseX - (mouseX % cuadros);
+    stepy = mouseY - (mouseY % cuadros);
+  }
+  
 }
 
 function setup() {
-  var cnv = createCanvas(450, 450);
+  var cnv = createCanvas((cuadros * 9), (cuadros * 9));
   var x = (windowWidth - width) / 2;
   var y = (windowHeight - height) / 2;
-  cnv.position(15, 15);
-  textSize(25);
-  filling_field();
+  cnv.position(83, 53);
+  textSize(30);
 }
 
 function draw() {
   background('#fff');
   strokeWeight(3);
-  nineFields(450);
+  nineFields(cuadros * 9);
   strokeWeight(1);
   push()
   for (var x = 0; x < 3; x++) {
     push()
     for (var y = 0; y < 3; y++) {
-      nineFields(150);
-      translate(0, 150);
+      nineFields(cuadros * 3);
+      translate(0, cuadros * 3);
     }
     pop()
-    translate(150, 0);
+    translate(cuadros * 3, 0);
   }
   pop();
   push();
@@ -109,7 +109,7 @@ function draw() {
     for (y = 0; y < 9; y++) {
       var col = answers[y][x];
       stroke(colors[col]);
-      text(field[y][x] ? field[y][x] : '', 20, 35);
+      text(field[y][x] ? field[y][x] : '', 22, 40);
       translate(0, cuadros);
     }
     pop();
@@ -118,8 +118,11 @@ function draw() {
   pop();
   stroke(0, 0, 0);
   strokeWeight(2.5);
-  line(stepx, stepy, stepx + (cuadros - 1), stepy);
-  line(stepx + (cuadros - 1), stepy, stepx + (cuadros), stepy + (cuadros - 1));
-  line(stepx + (cuadros - 1), stepy + (cuadros - 1), stepx, stepy + (cuadros - 1));
-  line(stepx, stepy + (cuadros - 1), stepx, stepy);
+  if (running === true){
+    line(stepx, stepy, stepx + (cuadros - 1), stepy);
+    line(stepx + (cuadros - 1), stepy, stepx + (cuadros), stepy + (cuadros - 1));
+    line(stepx + (cuadros - 1), stepy + (cuadros - 1), stepx, stepy + (cuadros - 1));
+    line(stepx, stepy + (cuadros - 1), stepx, stepy);
+  }
 }
+  

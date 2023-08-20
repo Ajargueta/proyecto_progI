@@ -1,435 +1,165 @@
 <!DOCTYPE html>
-<html>
+<html lang="">
 
 <head>
-  <link rel="stylesheet" src="styles.css">
-  <title>Proyecto: Sudoku</title>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sudoku</title>
+  <script src="p5.min.js"></script>
+  <!-- <script src="../addons/p5.sound.js"></script> -->
+  <script src="sketch.js"></script>
+  <script src="functions.js"></script>
+  <script src="./index.mjs" type="module"></script>
 </head>
 
 <body>
-  <div id="app" class="app"></div>
+  <div id="app"></div>
+  <style>
+    .contenedor3{
+      display: flex;
+    }
+    .contenedor2{
+      display: flex;
+    }
 
-  <script src="./index.mjs" type="module"></script>
-</body>
+    .contenedor1{
+      display: flex;
+    }
 
-</html>
+    .contenedor{
+      display: flex;
+    }
 
-<html>
+    .div-a{
+      background: #B0C4DE;
+      width: 700px;
+      height: 650px;
+        border-color: gray;
+        border-width: 3px;
+        border-style: solid;
+    }
 
-<style>
-  .table,
-  th,
-  tr {
-    border-width: 1px;
-    border-color: black;
-    width: 60px;
-    height: 60px;
-    background: white;
-    border-collapse: collapse;
-    font-family: Arial, Helvetica, sans-serif;
-    border-radius: 10%;
-  }
+    .div-b{
+      background: black;
+      width: 554px;
+      height: 554px;
+        border-color: green;
+        border-width: 5px;
+      margin: 35px;
+      margin-left: 65px;
+    }
 
+    .div-1{
+      background: peachpuff;
+      width: 250px;
+      height: 650px;
+      margin-left: 35px;
+      border-color: gray;
+        border-width: 3px;
+        border-style: solid;
+    }
 
+    .score{
+      background: #B0C4DE;
+      width: 235;
+      height: 95;
+      margin: 5px;
+        border-color: gray;
+        border-width: 3px;
+        border-style: solid;
+    }
+    .boton{
+      margin-left: 82.5px;
+      margin-top: 15px;
+      border-radius: 15%;
+      align-items: center;
+      width: 80px;
+      height: 40px;
+    }
+    .boton:hover{
+      background: #B0C4DE;
+      color: #fff !important;
+    }
+    .reloj{
+      margin-left: 68px;
+      margin-top: 30px;
+      align-items: center;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 180%;
+    }
 
-  .contenedor3 {
-    display: flex;
-  }
-
-  .contenedor2 {
-    display: flex;
-  }
-
-  .contenedor1 {
-    display: flex;
-  }
-
-  .contenedor {
-    display: flex;
-    align-items: center;
-
-  }
-
- .boton{
-    margin-left: 82.5px;
-    margin-top: 5px;
-    border-radius: 15%;
-    align-items: center;
-    width:80px;
-    height:25px;
+    .final{
+      margin-left: 10px;
+      margin-top: 50px;
+      align-items: center;
+      color: #f57076;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 150%;
+    }
+    .div_integrantes{
+      margin-top: 30px;
+      background: #abffd8;
+      width: 700px;
+      height: 200px;
+        border-color: rgb(0, 0, 0);
+        border-width: 3px;
+        border-style: solid;
+    }
+    .nombres{
+      margin-left: 10px;
+      margin-top: 15px;
+      margin-bottom: 20px;
+      font-size: 115%;
+    }
+    .integrantes{
+      margin-left: 30px;
+      margin-top: 10px;
+      font-size: 110%;
+    }
     
-  }
-
-  .boton:hover{
-    background: #318aac;
-    color: #fff !important;
-  }
-
-  .tiempo{
-    margin-left: 76px;
-    margin-right: 80px;
-    margin-bottom: 5px;
-    align-content: center;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 150%;
-    background: #fff;
-    border-radius: 15%;
-    width:94.5px;
-    height:25px;
-  }
-
-  .div-a {
-    background: #318aac;
-    width: 700px;
-    height: 650px;
-    border-color: gray;
-    border-width: 3px;
-    border-style: solid;
-  }
-
-  .div-b {
-    background: gray;
-    width: 570px;
-    height: 583px;
-    border-color: green;
-    border-width: 5px;
-    margin: 35px;
-    margin-left: 65px;
-  }
-
-  .div-c {
-    background: black;
-    width: 190px;
-    height: 185px;
-    border-color: black;
-    border-width: 5px;
-    border-style: solid;
-  }
-
-  .div-d {
-    background: black;
-    width: 190px;
-    height: 185px;
-    border-color: black;
-    border-width: 5px;
-    border-style: solid;
-  }
-
-  .div-e {
-    background: black;
-    width: 190px;
-    height: 185px;
-    border-color: black;
-    border-width: 5px;
-    border-style: solid;
-  }
-
-  .div-f {
-    background: black;
-    width: 190px;
-    height: 185px;
-    border-color: black;
-    border-width: 5px;
-    border-style: solid;
-  }
-
-  .div-g {
-    background: black;
-    width: 190px;
-    height: 185px;
-    border-color: black;
-    border-width: 5px;
-    border-style: solid;
-  }
-
-  .div-h {
-    background: black;
-    width: 190px;
-    height: 185px;
-    border-color: black;
-    border-width: 5px;
-    border-style: solid;
-  }
-
-  .div-i {
-    background: black;
-    width: 190px;
-    height: 185px;
-    border-color: black;
-    border-width: 5px;
-    border-style: solid;
-  }
-
-  .div-j {
-    background: black;
-    width: 190px;
-    height: 185px;
-    border-color: black;
-    border-width: 5px;
-    border-style: solid;
-  }
-
-  .div-k {
-    background: black;
-    width: 190px;
-    height: 185px;
-    border-color: black;
-    border-width: 5px;
-    border-style: solid;
-  }
-
-  .div-1 {
-    background: peachpuff;
-    width: 250px;
-    height: 650px;
-    margin-left: 35px;
-    border-color: gray;
-    border-width: 3px;
-    border-style: solid;
-  }
-
-  .score {
-    background: #318aac;
-    width: 235;
-    height: 95;
-    margin: 5px;
-    border-color: gray;
-    border-width: 3px;
-    border-style: solid;
-  }
 </style>
-<div>
 
-  <body>
-    <div class="contenedor">
-      <div class="div-a">
-        <div class="div-b">
-          <div class="contenedor1">
-            <div class="div-c">
-              <table>
-                <tr>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                </tr>
+<body>
+<div class="contenedor">
 
-                <tr>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                </tr>
-                <tr>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                </tr>
-              </table>
-            </div>
+  <div class="div-a">
+    <div class="div-b">
 
-            <div class="div-d">
-
-              <table>
-                <tr>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                </tr>
-
-                <tr>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                </tr>
-
-                <tr>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                </tr>
-
-              </table>
-            </div>
-
-            <div class="div-e">
-              <table>
-                <tr>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                </tr>
-                <tr>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                </tr>
-
-                <tr>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                </tr>
-              </table>
-            </div>
-
-          </div>
-
-          <div class="contenedor2">
-            <div class="div-f">
-              <table>
-                <tr>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                </tr>
-
-                <tr>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                </tr>
-                <tr>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                </tr>
-              </table>
-            </div>
-
-            <div class="div-g">
-
-              <table>
-                <tr>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                </tr>
-
-                <tr>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                </tr>
-
-                <tr>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                </tr>
-
-              </table>
-            </div>
-
-            <div class="div-h">
-              <table>
-                <tr>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                </tr>
-                <tr>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                </tr>
-
-                <tr>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                </tr>
-              </table>
-            </div>
-          </div>
-
-          <div class="contenedor3">
-            <div class="div-i">
-              <table>
-                <tr>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                </tr>
-
-                <tr>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                </tr>
-                <tr>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                </tr>
-              </table>
-            </div>
-
-            <div class="div-j">
-
-              <table>
-                <tr>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                </tr>
-
-                <tr>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                </tr>
-
-                <tr>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                </tr>
-
-              </table>
-            </div>
-
-            <div class="div-k">
-              <table>
-                <tr>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                </tr>
-                <tr>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                </tr>
-
-                <tr>
-                  <th></th>
-                  <th></th>
-                  <td></td>
-                </tr>
-              </table>
-            </div>
-          </div>
-
-        </div>
+      <div class="contenedor1">
       </div>
 
-      <div class="div-1">
-        <div class="score">
-          <h1>
-            <center></center>
-          </h1>
-        </div>
-        <main>
-          <div id="reloj", class="tiempo">00:00:00</div>
-          <div id="controls">
-            <button class="boton" id="inicio" value="Comanezar" onclick="Inicio();">Comenzar</button> 
-          </div>
-        </main>
+      <div class="contenedor2"> 
       </div>
 
-     
+      <div class="contenedor3"> 
+      </div>
+
+    </div>
+  </div>
+
+  <div class="div-1">
+
+    <div class="score">
+      <h1><center>Sudoku</center></h1>
     </div>
 
-  </body>
+    <div class="reloj" id="tiempo">00:00:00</div>
+    <div>
+      <input class="boton" type="button" id="starting" value="Comenzar" onclick="inicio()">
+    </div>
+    <div class="final" id="felicidades"></div>
+      
+  </div>
+
+  
+</div>
+<div class="div_integrantes">
+  <div class="nombres">Desarrollado por:</div>
+  <div class="integrantes">- Robi Williams Mejía</div>
+  <div class="integrantes">- Ángel Joel Nolasco</div>
+  <div class="integrantes">- Fabio Fernando Discua Calix</div>
+  <div class="integrantes">- </div>
+</div>
+</body>
 
 </html>
